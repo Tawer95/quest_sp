@@ -125,8 +125,13 @@ class GameWindow(QMainWindow):
         self.title_label.setText(scene.title)
         self.credit_label.setText(str(self.engine.state.credits))
 
-        # Текст сцены; анимацию запускаем только со второго вызова
-        self.story_text.setText(scene.text)
+        # Текст сцены; поддержка динамического текста (callable)
+        try:
+            text = scene.text(self.engine.state) if callable(scene.text) else scene.text
+        except TypeError:
+            text = scene.text()
+        # Анимацию запускаем только со второго вызова
+        self.story_text.setText(text)
         if not self._first_render:
             anim = QPropertyAnimation(self.story_panel, b"maximumHeight", self)
             self.story_panel.setMaximumHeight(10_000)
@@ -182,14 +187,20 @@ class GameWindow(QMainWindow):
         # Инвентарь — текстом
         items = sorted(self.engine.state.items)
         notes = list(self.engine.state.notes)
+        # Добавляем строку с лимитом инструментов
+        toolset = {"отвёртка", "шестигранник", "проволока", "таймер", "предохранитель"}
+        tools_carry = sorted([x for x in items if x in toolset])
+        tools_line = f"Инструменты при себе: {len(tools_carry)}/2" if tools_carry or True else ""
         if not items and not notes:
-            self.inv_text.setText("пусто")
+            self.inv_text.setText("пусто\n" + tools_line)
         else:
             lines = []
             if items:
                 lines.append("Предметы:")
                 for it in items:
                     lines.append(f" • {it}")
+                lines.append("")
+                lines.append(tools_line)
             if notes:
                 if items:
                     lines.append("")

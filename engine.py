@@ -19,7 +19,7 @@ class Option:
 class Scene:
     id: str
     title: str
-    text: str
+    text: Any  # str | Callable[[GameState], str]
     art_caption: str
     options: List[Option] = field(default_factory=list)
 
@@ -29,6 +29,7 @@ class GameState:
         self.credits: int = 200
         self.items: set[str] = set()
         self.notes: list[str] = []
+        self.closet_picks: int = 0
         self.flags: dict[str, bool] = {
             "spokeWithCellmate": False,
             "learnedAboutHiddenDoor": False,
