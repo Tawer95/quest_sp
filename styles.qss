@@ -1,0 +1,52 @@
+/* Ближняя к вебу тема */
+* {
+  color: #e7f6fb;
+  font-family: 'Segoe UI', 'Inter', 'Roboto', Arial, sans-serif;
+}
+
+QWidget#Root { background: #0a1922; }
+
+/* Общая панель */
+QFrame[objectName="Panel"] {
+  background: qlineargradient(x1:0,y1:0,x2:0,y2:1, stop:0 #0f2a36, stop:1 #173a4b);
+  border: 1px solid #18495e;
+  border-radius: 14px;
+}
+
+/* Заголовки/подписи */
+QLabel#Title { font-weight: 700; }
+QLabel#Money { color: #ffd36e; font-weight: 700; }
+QLabel#Muted { color: #7ea0ad; }
+
+/* Кнопки вариантов — узкий зазор между рамками, без «раздувания» */
+QPushButton#Choice {
+  background-color: #0f2d3a;
+  border: 1px solid #1b596f;
+  border-radius: 10px;
+  padding: 8px 10px;           /* не меняем высоту контента */
+  text-align: left;
+  margin: 4px 0;               /* тонкая полоска фона между рамками */
+  min-height: 32px;            /* компактно */
+}
+QPushButton#Choice:hover { border-color: #2ea0bb; }
+QPushButton#Choice:disabled {
+  background-color: #2a4957;
+  border-color: #2c5a6b;
+  color: #7ea0ad;
+}
+
+/* Чипы инвентаря */
+QLabel#Tag {
+  background: #123a47;
+  border: 1px solid #227388;
+  border-radius: 999px;
+  padding: 4px 8px;
+  color: #cfe9f3;
+}
+
+/* Плейсхолдер арта */
+QLabel#ArtBox {
+  background: qlineargradient(x1:0,y1:0,x2:1,y2:1, stop:0 #0f2a36, stop:1 #173a4b);
+  border: 1px solid #1a5266;
+  border-radius: 10px;
+}
